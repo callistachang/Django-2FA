@@ -21,5 +21,6 @@ urlpatterns = [
     re_path(r'^api/', include('djoser.urls')),
     re_path(r'^api/', include('djoser.urls.jwt')),
     re_path(r'^api/', include('SpaApp.urls')),
+    re_path(r'^api/', include('OtpApp.urls')),
 ]
 

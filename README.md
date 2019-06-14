@@ -34,3 +34,15 @@ sqlite3 db.sqlite3 "SELECT jwt_secret FROM SpaApp_spauser"
 > b5283b08539645bdbe07abc08fbfa5f1
 > 6de2cfcc1aef4684a179500f569ce21a
 
+/ OTP
+
+http POST http://127.0.0.1:8000/api/user/login/ email="carmeella@example.com" password="helloworld1"
+> Returns token
+
+http GET http://127.0.0.1:8000/api/totp/create/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ4ODYwMSwiZW1haWwiOiJjYXJtZWVsbGFAZXhhbXBsZS5jb20ifQ.Ci2IcSMMivmAgjaLdU9XaxFDCECEgFWAKqVR25Xmies"
+> "otpauth://totp/carmeella%40example.com?secret=BVU3JHC6POLKNTOGMWZZIJDIADF4655H&algorithm=SHA1&digits=6&period=30"
+> Enter the secret key into Google Authenticator
+
+http POST http://127.0.0.1:8000/api/totp/login/938181/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ4ODYwMSwiZW1haWwiOiJjYXJtZWVsbGFAZXhhbXBsZS5jb20ifQ.Ci2IcSMMivmAgjaLdU9XaxFDCECEgFWAKqVR25Xmies"
+> true
+
