@@ -33,7 +33,9 @@ http POST http://127.0.0.1:8000/api/user/create/ email="rezinomrah@example.com" 
 
 sqlite3 db.sqlite3 "SELECT jwt_secret FROM SpaApp_spauser"
 > Different jwt_secret generated per user:
+
 > b5283b08539645bdbe07abc08fbfa5f1
+
 > 6de2cfcc1aef4684a179500f569ce21a
 
 ## TOTP
@@ -43,6 +45,7 @@ http POST http://127.0.0.1:8000/api/user/login/ email="carmeella@example.com" pa
 
 http GET http://127.0.0.1:8000/api/totp/create/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ4ODYwMSwiZW1haWwiOiJjYXJtZWVsbGFAZXhhbXBsZS5jb20ifQ.Ci2IcSMMivmAgjaLdU9XaxFDCECEgFWAKqVR25Xmies"
 > "otpauth://totp/carmeella%40example.com?secret=BVU3JHC6POLKNTOGMWZZIJDIADF4655H&algorithm=SHA1&digits=6&period=30"
+
 > Enter the secret key into Google Authenticator
 
 http POST http://127.0.0.1:8000/api/totp/login/938181/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ4ODYwMSwiZW1haWwiOiJjYXJtZWVsbGFAZXhhbXBsZS5jb20ifQ.Ci2IcSMMivmAgjaLdU9XaxFDCECEgFWAKqVR25Xmies"
@@ -78,6 +81,7 @@ http GET http://127.0.0.1:8000/api/user/view/ 'Authorization: JWT eyJ0eXAiOiJKV1
 
 http POST http://127.0.0.1:8000/api/totp/login/369276/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MDY2Miwib3RwX2RldmljZV9pZCI6bnVsbH0.OLHy_sEzDJDg2MZhidvOFz67R9hskXn90Gj74OGxwiw'
 > Returns new JWT token with OTP verification information (TOTP device)
+
 > Try again with the new JWT token
 
 http GET http://127.0.0.1:8000/api/user/view/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MDc3OCwib3RwX2RldmljZV9pZCI6Im90cF90b3RwLnRvdHBkZXZpY2UvMSJ9.nk4DJpAhjM7sqI2Vwq7uNLxqSQT6z6jjA7aLgxPANaE'
@@ -96,7 +100,9 @@ http GET http://127.0.0.1:8000/api/static/create/ "Authorization: JWT eyJ0eXAiOi
 
 http POST http://127.0.0.1:8000/api/static/login/v35fajpl/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MjA1Niwib3RwX2RldmljZV9pZCI6bnVsbH0.0XVzFChaTXmgPnL_JyD-cm8Z-gCAiH0CTD2cM3d_qrg'
 > Use a payload that didn't have permission
+
 > Returns new token with OTP verification information (static device)
+
 > Try again with the new JWT token
 
 ![jwt.io](jwtio3.png)
