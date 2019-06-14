@@ -55,3 +55,14 @@ http GET http://127.0.0.1:8000/api/user/view/ 'Authorization: JWT eyJ0eXAiOiJKV1
 > Returns info
 
 ![jwt.io](jwtio.png)
+
+/ Storing an OTP identifier in the JWT
+
+http POST http://127.0.0.1:8000/api/user/login/ email="carmeella@example.com" password="helloworld1"
+> Returns token
+
+http POST http://127.0.0.1:8000/api/totp/login/084060/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MDE1MCwib3RwX2RldmljZV9pZCI6bnVsbH0.RzkUkGPIiyFoekM0vtuJtcRbyYRbiv4Dbdq7vvdFpw0"
+> Returns info including OTP verification information
+
+![jwt.io](jwtio2.png)
+

@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django_otp import devices_for_user
 from django_otp.plugins.otp_totp.models import TOTPDevice
+from .utils import get_custom_jwt
 
 def get_user_totp_device(self, user, confirmed=None):
     devices = devices_for_user(user, confirmed=confirmed)
@@ -37,5 +38,6 @@ class TOTPVerifyView(views.APIView):
             if not device.confirmed:
                 device.confirmed = True
                 device.save()
-            return Response(True, status=status.HTTP_201_CREATED)
+            token = get_custom_jwt(user, device)
+            return Response({'token': token}, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
