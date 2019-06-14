@@ -20,3 +20,17 @@ http POST http://127.0.0.1:8000/api/user/login/ email="carmeella@example.com" pa
 
 http GET http://127.0.0.1:8000/user/view/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ4NzA2MSwiZW1haWwiOiJjYXJtZWVsbGFAZXhhbXBsZS5jb20ifQ.0GzSV7Ih_JsNwh4a1i1obzlsajtftszI12238WoY9Gw'
 > Returns info
+
+/ JWT logout
+
+http POST http://127.0.0.1:8000/api/user/create/ email="carmeella@example.com" password="helloworld1"
+> Success
+
+http POST http://127.0.0.1:8000/api/user/create/ email="rezinomrah@example.com" password="helloworld1"
+> Success
+
+sqlite3 db.sqlite3 "SELECT jwt_secret FROM SpaApp_spauser"
+> Different jwt_secret generated per user:
+> b5283b08539645bdbe07abc08fbfa5f1
+> 6de2cfcc1aef4684a179500f569ce21a
+
