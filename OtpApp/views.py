@@ -3,7 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from django_otp import devices_for_user
 from django_otp.plugins.otp_totp.models import TOTPDevice
+import uuid
+
 from .utils import get_custom_jwt
+from . import permissions as otp_permissions
 
 # TOTP Devices
 
@@ -44,10 +47,25 @@ class TOTPVerifyView(views.APIView):
             return Response({'token': token}, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class TOTPDeleteView(views.APIView):
+    """
+    Use this endpoint to delete a TOTP device
+    """
+    permission_classes = [permissions.IsAuthenticated, otp_permissions.IsOtpVerified]
+
+    def post(self, request, format=None):
+        user = request.user
+        devices = devices_for_user(user)
+        for device in devices:
+            device.delete()
+        user.jwt_secret = uuid.uuid4()
+        user.save()
+        token = get_custom_jwt(user, None)
+        return Response({'token': token}, status=status.HTTP_200_OK)
+
 # Static Devices
 
 from django_otp.plugins.otp_static.models import StaticDevice, StaticToken
-from . import permissions as otp_permissions
 
 def get_user_static_device(self, user, confirmed=None):
     devices = devices_for_user(user, confirmed=confirmed)

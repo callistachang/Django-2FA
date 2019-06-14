@@ -92,9 +92,9 @@ http POST http://127.0.0.1:8000/api/totp/login/713261/ 'Authorization: JWT eyJ0e
 > Returns new JWT token with OTP verification information
 
 http GET http://127.0.0.1:8000/api/static/create/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MjAyNiwib3RwX2RldmljZV9pZCI6Im90cF90b3RwLnRvdHBkZXZpY2UvMSJ9.umBLx9xsBDcypsxwH4eyndzShGhOJn3y-Rhr2pP_53Q"
-> "5dlxc4j7", "gvpnoxgu", "dvmkqpsb", "uykbc5wv", "4i2zq2ni", "4e4x4z4c"
+> "v35fajpl", "rhril2nq", "vnm5kyys", "trtyztr2", "mjqiopc4", "zvxlhorq"
 
-http POST http://127.0.0.1:8000/api/static/login/5dlxc4j7/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MjA1Niwib3RwX2RldmljZV9pZCI6bnVsbH0.0XVzFChaTXmgPnL_JyD-cm8Z-gCAiH0CTD2cM3d_qrg'
+http POST http://127.0.0.1:8000/api/static/login/v35fajpl/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MjA1Niwib3RwX2RldmljZV9pZCI6bnVsbH0.0XVzFChaTXmgPnL_JyD-cm8Z-gCAiH0CTD2cM3d_qrg'
 > Use a payload that didn't have permission
 > Returns new token with OTP verification information (static device)
 > Try again with the new JWT token
@@ -103,3 +103,17 @@ http POST http://127.0.0.1:8000/api/static/login/5dlxc4j7/ 'Authorization: JWT e
 
 http GET http://127.0.0.1:8000/api/user/view/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MDc3OCwib3RwX2RldmljZV9pZCI6Im90cF90b3RwLnRvdHBkZXZpY2UvMSJ9.nk4DJpAhjM7sqI2Vwq7uNLxqSQT6z6jjA7aLgxPANaE'
 > Returns info successfully
+
+## Deleting TOTP devices
+
+http POST http://127.0.0.1:8000/api/user/login/ email="carmeella@example.com" password="helloworld1"
+> Returns token
+
+http POST http://127.0.0.1:8000/api/static/login/v35fajpl/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5MzcyNCwib3RwX2RldmljZV9pZCI6bnVsbH0.UoGLbToAl1TqtXjev8lgPB5xNkpm8KGK0Xve8xoIXd0'
+> Returns new token with OTP verification information (static device)
+
+http GET http://127.0.0.1:8000/api/user/view/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5Mzg2Niwib3RwX2RldmljZV9pZCI6Im90cF9zdGF0aWMuc3RhdGljZGV2aWNlLzEifQ.7aBcROAmXzURwXnKE8VPY6BPQ_2QNnETWoMdt7oGrT8'
+> Returns info successfully
+
+http POST http://127.0.0.1:8000/api/totp/delete/ 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImNhcm1lZWxsYUBleGFtcGxlLmNvbSIsImV4cCI6MTU2MDQ5Mzg2Niwib3RwX2RldmljZV9pZCI6Im90cF9zdGF0aWMuc3RhdGljZGV2aWNlLzEifQ.7aBcROAmXzURwXnKE8VPY6BPQ_2QNnETWoMdt7oGrT8'
+> Returns token with null OTP verification information
